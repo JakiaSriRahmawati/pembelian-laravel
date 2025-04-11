@@ -4,19 +4,30 @@
     <title>Hasil Pembelian</title>
 </head>
 <body>
-    <h2>Detail Pembelian</h2>
+    <h2>Hasil Pembelian</h2>
 
-    <p>Nama Barang: <strong>{{ $itemName }}</strong></p>
-    <p>Harga Satuan: Rp {{ number_format($price, 2, ',', '.') }}</p>
-    <p>Jumlah: {{ $quantity }}</p>
-    <p>Subtotal: Rp {{ number_format($subtotal, 2, ',', '.') }}</p>
-    <p>Diskon ({{ $discount }}%): Rp {{ number_format($discountAmt, 2, ',', '.') }}</p>
-    <p>Pajak ({{ $tax }}%): Rp {{ number_format($taxAmt, 2, ',', '.') }}</p>
-    <p><strong>Total Bayar: Rp {{ number_format($total, 2, ',', '.') }}</strong></p>
-    <p>Uang Diberikan: Rp {{ number_format($payment, 2, ',', '.') }}</p>
-    <p><strong>Kembalian: Rp {{ number_format($change, 2, ',', '.') }}</strong></p>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Nama Barang</th>
+            <th>Jumlah</th>
+            <th>Harga Satuan</th>
+            <th>Total</th>
+        </tr>
+        @foreach ($items as $item)
+            <tr>
+                <td>{{ $item['name'] }}</td>
+                <td>{{ $item['quantity'] }}</td>
+                <td>Rp {{ number_format($item['price'], 0, ',', '.') }}</td>
+                <td>Rp {{ number_format($item['total'], 0, ',', '.') }}</td>
+            </tr>
+        @endforeach
+    </table>
 
-    <br>
-    <a href="/purchase">Kembali ke Form</a>
+    <p>Subtotal: Rp {{ number_format($subtotal, 0, ',', '.') }}</p>
+    <p>Diskon ({{ $discount }}%): Rp {{ number_format($discountAmt, 0, ',', '.') }}</p>
+    <p>Pajak ({{ $tax }}%): Rp {{ number_format($taxAmt, 0, ',', '.') }}</p>
+    <h3>Total: Rp {{ number_format($total, 0, ',', '.') }}</h3>
+    <p>Bayar: Rp {{ number_format($payment, 0, ',', '.') }}</p>
+    <p>Kembalian: Rp {{ number_format($change, 0, ',', '.') }}</p>
 </body>
 </html>
